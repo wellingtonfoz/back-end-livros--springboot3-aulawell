@@ -18,7 +18,7 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	@PostMapping
+	@PostMapping("/logar")
 	public ResponseEntity<String> logar(@RequestBody Login login) {
 		try {
 			String token = loginService.logar(login);
