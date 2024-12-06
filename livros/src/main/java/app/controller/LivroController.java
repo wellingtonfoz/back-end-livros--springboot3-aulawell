@@ -1,8 +1,7 @@
 package app.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -64,10 +63,10 @@ public class LivroController {
 		}
 	}
 	
-	@GetMapping("/findAll")
-	public ResponseEntity<List<Livro>> findAll(){
+	@GetMapping("/findAll/{pagina}")
+	public ResponseEntity<Page<Livro>> findAll(@PathVariable int pagina){
 		try {
-			List<Livro> lista = this.livroService.findAll();
+			Page<Livro> lista = this.livroService.findAll(pagina);
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
@@ -84,10 +83,10 @@ public class LivroController {
 		}
 	}
 	
-	@GetMapping("/findByTitulo")
-	public ResponseEntity<List<Livro>> findByTitulo(@RequestParam String nome){
+	@GetMapping("/findByTitulo/{pagina}")
+	public ResponseEntity<Page<Livro>> findByTitulo(@RequestParam String nome, @PathVariable int pagina){
 		try {
-			List<Livro> lista = this.livroService.findByTitulo(nome);
+			Page<Livro> lista = this.livroService.findByTitulo(nome,pagina);
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 			
 		} catch (Exception e) {
